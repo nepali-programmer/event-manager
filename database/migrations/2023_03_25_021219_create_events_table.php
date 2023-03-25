@@ -18,7 +18,7 @@ return new class extends Migration
             $table->char('address', 300);
             $table->dateTime('start_date', $precision = 0);
             $table->dateTime('end_date', $precision = 0);            
-            $table->string('event_picture');
+            $table->string('event_picture');            
             $table->timestamps();
         });
     }

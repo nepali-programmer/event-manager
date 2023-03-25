@@ -2,21 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 
 
 class LoginController extends Controller
-{
-    public function index(): View
+{    
+    public function index()
     {        
-        return view('login');
+        /////////////////////        
+        // $user = new User();
+        // $user->password = Hash::make('asd12345');
+        // $user->email = 'user@gmail.com';
+        // $user->name = 'user';
+        // $user->save();        
+        /////////////////////                        
+        if(Gate::allows('is-auth-and-admin')) {
+            return redirect('/');
+        }
+        return view('login', ['login_error' => false, 'email' => '', 'password' => '']);
     }
-    public function login(Request $request): View
+    public function login(Request $request)
     {
         $email = $request->input('email');
-        $password = $request->input('password');        
-        return view('ticket_type');
+        $password = $request->input('password');
+        $is_auth = Auth::attempt([
+            'email' => $email,
+            'password' => $password,
+            'is_admin' => 1,
+        ]);
+        if($is_auth) {
+            return redirect('/');
+        }
+        return view('login', ['login_error' => true, 'email' => $email, 'password' => $password]);
     }
 }
