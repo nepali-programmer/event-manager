@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index(Request $request): View
-    {
-        if(Auth::check()) {
-            return view('event');
-        }
+    public function index(): View
+    {        
         return view('login');
+    }
+    public function login(Request $request): View
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');        
+        return view('ticket_type');
     }
 }

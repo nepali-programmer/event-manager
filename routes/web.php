@@ -19,3 +19,4 @@ use App\Http\Controllers\EventController;
 Route::get('/', [EventController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'login']);
