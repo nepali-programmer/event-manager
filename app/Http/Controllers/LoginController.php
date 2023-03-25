@@ -16,11 +16,11 @@ class LoginController extends Controller
     public function index()
     {        
         /////////////////////        
-        $user = new User();
-        $user->password = Hash::make('asd12345');
-        $user->email = 'admin@gmail.com';
-        $user->name = 'admin';
-        $user->save();
+        // $user = new User();
+        // $user->password = Hash::make('asd12345');
+        // $user->email = 'admin@gmail.com';
+        // $user->name = 'admin';
+        // $user->save();
         /////////////////////
         // $user = User::find(2);
         // $user->password = Hash::make('asd12345');
