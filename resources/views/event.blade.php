@@ -3,7 +3,7 @@
 @section('content')    
     <div id="eventAddModal" class="modal" tabindex="-1">
         <div class="modal-dialog">
-            <form method="post" class="modal-content">
+            <form method="post" class="modal-content" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Event</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -47,8 +47,8 @@
                         </div>
                     </div>
                     <div class="form-outline mb-4">                        
-                        <label class="form-label" for="picture">Event Picture</label>
-                        <input type="file" name="picture" id="picture" class="form-control" required /> 
+                        <label class="form-label" for="picture">Event Picture (1MB Max)</label>
+                        <input type="file" accept="image/*" name="image" id="picture" class="form-control" required /> 
                     </div>
                 </div>                
                 <div class="modal-footer">
@@ -109,7 +109,7 @@
                     <td>{{$data->address}}</td>
                     <td>{{$data->start_date}}</td>
                     <td>{{$data->end_date}}</td>
-                    <td>{{$data->ticket_type->name}}</td>
+                    <td>{{$data->ticket_type == null ? 'N/A' : $data->ticket_type->name}}</td>
                     <td>{{$data->price}}</td>
                     <td>
                         <a href="/event/{{$data->id}}" class="btn btn-sm btn-outline-primary">
@@ -143,6 +143,13 @@
             const id = $(this).data('id');
             $('#eventIdForDelete').val(id);
             $('#eventDeleteModal').modal('show');
+        });
+        $('#picture').on('change', function() {
+            const size = this.files[0].size / 1024;
+            if(size > 1024) {
+                $('#picture').val('');
+                alert('Image size must be less than 1MB');                
+            }            
         });
     });    
 </script>

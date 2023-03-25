@@ -58,7 +58,11 @@
             </div>
         </div>
         <div class="form-outline mb-4">                        
-            <label class="form-label" for="picture">Event Picture</label>            
+            <label class="form-label" for="picture">Event Picture</label>
+            <br>
+            <a href="/images/{{$event->event_picture}}" target="_blank" class="d-inline-block p-1 border">
+                <img height="300" src="/images/{{$event->event_picture}}">
+            </a>
         </div>
         <div class="form-outline mb-4">                        
             <a href="/event/{{$event->id}}/update" class="btn btn-primary">

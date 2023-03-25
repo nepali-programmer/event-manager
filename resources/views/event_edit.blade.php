@@ -1,7 +1,7 @@
 
 @extends('base')
 @section ('content')
-<form method="post" class="row">
+<form method="post" class="row" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="id" value="{{$event->id}}">
     <div class="col-12 col-md-10 col-lg-6">
@@ -46,11 +46,39 @@
             </div>
         </div>
         <div class="form-outline mb-4">                        
-            <label class="form-label" for="picture">Event Picture</label>            
+            <label class="form-label" for="picture">
+                Event Picture (1MB Max)      
+            </label>
+            <br>
+            <a href="/images/{{$event->event_picture}}" target="_blank" class="d-inline-block p-1 border">
+                <img height="300" id="image" src="/images/{{$event->event_picture}}">
+            </a>
+            <div class="row mt-4">
+                <div class="col-6">
+                    <input class="form-control" type="file" accept="image/*" name="image" id="picture">
+                </div>
+            </div>
         </div>
         <div class="form-outline mb-4">                        
             <button type="submit" class="btn btn-primary">Save change</button>          
         </div>
     </div>
 </form>
+@stop
+
+@section('end_script')
+<script>
+    $(function() {        
+        $('#picture').on('change', function() {
+            const size = this.files[0].size / 1024;
+            if(size > 1024) {
+                $('#picture').val('');
+                alert('Image size must be less than 1MB');                
+            } else {
+                var path = URL.createObjectURL(event.target.files[0]);            
+                $('#image').attr('src', path);
+            }            
+        });
+    });    
+</script>
 @stop

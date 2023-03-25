@@ -32,18 +32,27 @@ class EventController extends Controller
         $end_date = $request->input('endDate');        
         $ticket_type = $request->input('ticketType');        
         $price = $request->input('price');        
-        $picture = $request->input('picture');   
         ///////////
         $event = new Event();
-        $event->name = $name;  
-        $event->description = $description;  
+        $event->name = $name;
+        $event->description = $description;
         $event->address = $address;  
         $event->start_date = $start_date;  
         $event->end_date = $end_date;
         $event->ticket_type_id = $ticket_type;
-        $event->price = $price;
-        $event->event_picture = $picture;
+        $event->price = $price;        
+        /////////////
+        $validationResult = request()->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        $request->image->move(public_path('images'), $imageName);
+        /////////////
+        $event->event_picture = $imageName;
+        /////////////
         $event->save();
+        return back()
+            ->with('success','You have successfully upload image.');
         return redirect('/');
     }
 
@@ -91,7 +100,7 @@ class EventController extends Controller
         $start_date = $request->input('startDate');        
         $end_date = $request->input('endDate');        
         $ticket_type = $request->input('ticketType');        
-        $price = $request->input('price');
+        $price = $request->input('price');        
         ///////////
         $event = Event::find($id);
         $event->name = $name;  
@@ -100,7 +109,16 @@ class EventController extends Controller
         $event->start_date = $start_date;  
         $event->end_date = $end_date;
         $event->ticket_type_id = $ticket_type;
-        $event->price = $price;        
+        $event->price = $price;                
+        if(request()->image != null) {
+            $validationResult = request()->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $imageName = time().'.'.request()->image->getClientOriginalExtension();
+            $request->image->move(public_path('images'), $imageName);
+            /////////////
+            $event->event_picture = $imageName;
+        }
         $event->save();   
         return redirect('/');
     }
