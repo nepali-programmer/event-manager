@@ -8,6 +8,12 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketTypeController;
 
 Route::get('/', [EventController::class, 'index'])->name('event');
+Route::post('/', [EventController::class, 'create']);
+Route::delete('/', [EventController::class, 'destroy']);
+
+Route::get('/event/{id}', [EventController::class, 'detail']);
+Route::get('/event/{id}/update', [EventController::class, 'update_index']);
+Route::post('/event/{id}/update', [EventController::class, 'update']);
 
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'login']);
