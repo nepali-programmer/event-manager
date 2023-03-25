@@ -15,7 +15,7 @@ Route::get('/event/{id}', [EventController::class, 'detail']);
 Route::get('/event/{id}/update', [EventController::class, 'update_index']);
 Route::post('/event/{id}/update', [EventController::class, 'update']);
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', function() {
     return redirect('/')->with(Auth::logout());
