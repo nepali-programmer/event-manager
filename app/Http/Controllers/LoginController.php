@@ -20,6 +20,10 @@ class LoginController extends Controller
         // $user->password = Hash::make('asd12345');
         // $user->email = 'user@gmail.com';
         // $user->name = 'user';
+        // $user->save();
+        /////////////////////
+        // $user = User::find(2);
+        // $user->password = Hash::make('asd12345');
         // $user->save();        
         /////////////////////                        
         if(Gate::allows('is-auth-and-admin')) {
