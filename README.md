@@ -11,3 +11,7 @@ Just run:
 `composer install`
 
 and you are good to go.
+
+### Login Credential
+
+<table><tbody><tr><td>Type</td><td>Email</td><td>Password</td></tr><tr><td>Admin</td><td>admin@gmail.com</td><td>asd12345</td></tr><tr><td>User</td><td>user@gmail.com</td><td>asd12345</td></tr></tbody></table>
