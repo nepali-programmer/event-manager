@@ -1,6 +1,6 @@
 ## Event App Backend & Admin Section
 
-There is no additional steps to run this project. Sqlite database and .env file are also included in this project for ease of testing.
+There are no additional steps to running this project. Sqlite database and .env file are also included in this project for ease of testing.
 
 ### Running project
 
