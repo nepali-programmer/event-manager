@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Contracts\Routing\ResponseFactory;
 
 use App\Models\User;
 
@@ -23,7 +24,11 @@ class LoginApiController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-    
-        return $user->createToken($request->email)->plainTextToken;
+        $token = $user->createToken($request->email)->plainTextToken;
+        return response()->json([
+            "name" => $user->name,
+            "email" => $user->email,
+            "token" => $token,
+        ]);
     }
 }
